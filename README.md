@@ -31,6 +31,7 @@ L'architecture implique :
 - Un script Python est utilisé pour simuler les données de température et d'humidité et les publier sur un topic MQTT à l'aide de `paho-mqtt`.
 
 <img src="img/image15.png">
+
 ---
 
 ### 2. Mise en Place du Broker MQTT (Eclipse-Mosquitto)
@@ -54,12 +55,17 @@ L'architecture implique :
    ```
 
 2. Créez un flux dans Node-Red :
+
    <img src="img/image1.png">
+
    - Ajoutez un nœud d'entrée MQTT pour recevoir des données du topic `dht/data`.
    - Ajoutez un nœud de sortie InfluxDB pour stocker les données dans la base `dht`.
+
    <img src="img/image2.png">
    <img src="img/image3.png">
+
    - Connectez les nœuds dans un flux.
+
    <img src="img/image4.png">
 
 3. Déployez le flux pour commencer le traitement des données.
@@ -85,12 +91,11 @@ L'architecture implique :
    <img src="img/image9.jpg">
    <img src="img/image10.jpg">
    <img src="img/image11.jpg">
+
 3. Vérifiez la création de la base de données :
    ```sql
    SHOW DATABASES;
    ```
-
-<img src="img/image.png">
 ---
 
 ### 5. Configuration de Grafana
@@ -101,12 +106,16 @@ L'architecture implique :
 
 2. Configurez une source de données :
    - Connectez-vous à Grafana via `http://localhost:3000` (identifiants par défaut : `admin`/`admin`).
+
    <img src="img/image6.png">
+
    - Allez dans **Configuration > Data Sources**.
    - Ajoutez une nouvelle source de données :
      - Type : **InfluxDB**
+
      <img src="img/image7.png">
      <img src="img/image12.png">
+
      - URL : `http://influxdb:8086`
      - Base de données : `dht`
 
@@ -116,6 +125,8 @@ L'architecture implique :
    - Configurez les requêtes pour récupérer les données de la base `dht`.
 
 ---
+### 6. démarrage des conteneurs
+<img src="img/image.png">
 
 ## Captures d'Écran
 - **Visualisation des données avec Grafana :**
