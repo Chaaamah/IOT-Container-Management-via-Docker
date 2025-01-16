@@ -87,10 +87,6 @@ L'architecture implique :
      ```sql
      CREATE DATABASE dht;
      ```
-   <img src="img/image5.jpg">
-   <img src="img/image9.jpg">
-   <img src="img/image10.jpg">
-   <img src="img/image11.jpg">
 
 3. Vérifiez la création de la base de données :
    ```sql
@@ -130,8 +126,7 @@ L'architecture implique :
 
 ## Captures d'Écran
 - **Visualisation des données avec Grafana :**
-<img src="img/image13.jpg">
-<img src="img/image14.jpg">
+<img src="img/image13.png">
   
 
 ---

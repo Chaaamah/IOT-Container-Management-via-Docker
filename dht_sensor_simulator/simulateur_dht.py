@@ -1,42 +1,30 @@
+import time
 import paho.mqtt.client as mqtt
 import random
-import time
 
 # Configuration du broker MQTT
-BROKER = "localhost"
+BROKER = "test.mosquitto.org"
 PORT = 1883
-TOPIC = "iot/capteur/dht"
+TOPIC = "sensors/dht"
 
-# Fonction pour simuler les données du capteur DHT
-def simulate_dht():
-    temperature = round(random.uniform(20.0, 30.0), 2)  # Température entre 20.0 et 30.0
-    humidity = round(random.uniform(30.0, 60.0), 2)  # Humidité entre 30.0 et 60.0
-    return {"temperature": temperature, "humidity": humidity}
-
-# Callback pour la connexion au broker MQTT
-def on_connect(client, userdata, flags, rc):
-    if rc == 0:
-        print("Connecté au broker MQTT")
-    else:
-        print(f"Échec de la connexion, code de retour {rc}")
-
-# Création du client MQTT
-client = mqtt.Client()
-client.on_connect = on_connect
-
-try:
-    # Connexion au broker MQTT
-    client.connect(BROKER, PORT, 60)
-    client.loop_start()  # Démarre la boucle de gestion des messages
-
+# Simulation du capteur DHT
+def simulate_sensor():
     while True:
-        data = simulate_dht()
-        client.publish(TOPIC, str(data))
-        print(f"Données publiées : {data}")
-        time.sleep(5)
+        # Générer des valeurs aléatoires pour la température et l'humidité
+        temperature = round(random.uniform(20.0, 30.0), 2)
+        humidity = round(random.uniform(40.0, 60.0), 2)
 
-except KeyboardInterrupt:
-    print("Arrêt du script...")
-    client.loop_stop()  # Arrête la boucle de gestion des messages
-    client.disconnect()  # Déconnexion du broker MQTT
-    print("Déconnecté du broker MQTT")
+        # Créer un message JSON
+        payload = f'{{"temperature": {temperature}, "humidity": {humidity}}}'
+
+        # Publier les données sur le broker MQTT
+        client.publish(TOPIC, payload)
+        print(f"Données envoyées : {payload}")
+        time.sleep(2)  # Pause de 5 secondes
+
+# Configuration du client MQTT
+client = mqtt.Client()
+client.connect(BROKER, PORT)
+
+# Lancer la simulation
+simulate_sensor()
